@@ -1,0 +1,10 @@
+/* Placeholder backgrounds until real art is added */
+[data-scene="courtroom"],
+.background[style*="courtroom"] {
+    background: linear-gradient(160deg, #1a0a00 0%, #3d1f00 40%, #1a0a00 100%) !important;
+}
+
+[data-scene="cell"],
+.background[style*="cell"] {
+    background: linear-gradient(180deg, #0a0a0a 0%, #1c1c1c 60%, #0a0a0a 100%) !important;
+}

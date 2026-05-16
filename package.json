@@ -1,0 +1,27 @@
+{
+  "name": "hackathon-death-penalty",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZedMalatesta/Hackathon-Death-Penalty.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ZedMalatesta/Hackathon-Death-Penalty/issues"
+  },
+  "homepage": "https://github.com/ZedMalatesta/Hackathon-Death-Penalty#readme",
+  "devDependencies": {
+    "vite": "^8.0.13"
+  },
+  "dependencies": {
+    "@monogatari/core": "^2.0.0"
+  }
+}

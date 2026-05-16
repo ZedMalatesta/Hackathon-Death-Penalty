@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Death Penalty — A Visual Novel</title>
+
+    <link rel="stylesheet" href="node_modules/@monogatari/core/dist/engine/core/monogatari.css">
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+    <div id="monogatari">
+        <visual-novel>
+            <language-selection-screen></language-selection-screen>
+            <loading-screen></loading-screen>
+            <main-screen>
+                <main-menu></main-menu>
+            </main-screen>
+            <game-screen>
+                <dialog-log></dialog-log>
+                <text-box></text-box>
+                <quick-menu></quick-menu>
+            </game-screen>
+            <gallery-screen></gallery-screen>
+            <credits-screen></credits-screen>
+            <settings-screen></settings-screen>
+            <save-screen></save-screen>
+            <load-screen></load-screen>
+        </visual-novel>
+    </div>
+
+    <script src="node_modules/@monogatari/core/dist/engine/core/monogatari.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
