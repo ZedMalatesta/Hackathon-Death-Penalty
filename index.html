@@ -38,10 +38,29 @@
         <div id="hammer-sprite"></div>
     </div>
 
-    <!-- Legal info overlay -->
+    <!-- Scene props — shown during gameplay -->
+    <div id="prop-clipboard" hidden>
+        <img src="assets/clipboard.png" alt="">
+    </div>
+    <div id="prop-case-doc" hidden>
+        <img src="assets/case-doc.png" alt="">
+    </div>
+    <div id="prop-gavel" hidden>
+        <img src="assets/gavel-block.png" alt="">
+    </div>
+
     <!-- UI Buttons -->
     <button id="lang-btn" aria-label="Switch Language" title="Switch Language">EN</button>
-    <button id="info-btn" aria-label="Legal information" title="Legal info">!</button>
+    <button id="info-btn" aria-label="Legal information" title="Legal info">ІНФА</button>
+
+    <!-- Epilogue overlay — real case story on wood background -->
+    <div id="epilogue-overlay" hidden>
+        <div id="epilogue-content">
+            <div id="epilogue-intro"></div>
+            <div id="epilogue-body"></div>
+            <button id="epilogue-continue">Continue</button>
+        </div>
+    </div>
 
     <div id="info-panel" role="dialog" aria-modal="true" aria-label="Legal information" hidden>
         <div id="info-panel-inner">

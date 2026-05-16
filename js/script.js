@@ -225,9 +225,9 @@ monogatari.script({
         ],
 
         'CheckAutopsy': [
-            'JUDGE Time of death: estimated between 22:30 and 23:30 on February 14th.',
-            'JUDGE A single dark hair was found on the victim\'s outer clothing. Coarse texture. Light-colored.',
-            'JUDGE Adamov\'s hair is fine and brown.',
+            'JUDGE Time of death: estimated between 19:00 and 21:00 on January 13th.',
+            'JUDGE The forensic report establishes blood type of biological traces recovered at the scene.',
+            'JUDGE The blood type is consistent with the accused. It is also shared by approximately 40% of the population.',
             {
                 'Choice': {
                     'Dialog': 'JUDGE Investigate the hair?',
@@ -306,38 +306,27 @@ monogatari.script({
 
         'GuiltyEnd': [
             function () { return window.playHammer(); },
-            'show scene #0a0a0a with fadeIn',
             'JUDGE Guilty. Alexei Adamov is sentenced to fifteen years of corrective labor.',
             'ADAMOV No. No — I didn\'t do it. They made me say it. Please.',
             'JUDGE The courtroom empties. The file is closed.',
-            'JUDGE The verdict was appealed. The appeal was denied.',
-            'JUDGE In August 1985, a man named Gennadiy Mikhaseich was detained near Polotsk.',
-            'JUDGE He confessed to the rape and murder of forty-two women.',
-            'JUDGE One of them was Tatyana Katsuba.',
-            'JUDGE Adamov was released after ten years. He was thirty-eight years old.',
-            'JUDGE Fourteen people were wrongfully convicted in eleven trials.',
-            'JUDGE One was executed.',
+            function () { return window.showEpilogue('GuiltyEnd'); },
             'end',
         ],
 
         'AcquitEnd': [
             function () { return window.playHammer(); },
-            'show scene #0a0a0a with fadeIn',
-            'JUDGE Not guilty. The evidence presented does not reach the standard required to deprive a citizen of his liberty.',
+            'JUDGE Not guilty. The evidence presented does not reach the standard required for conviction.',
             'JUDGE The confession was obtained under conditions this court cannot accept.',
-            'JUDGE The prosecution will appeal. Your superiors will call. The pressure will be considerable.',
             'JUDGE You know what you saw. A bruise. A protocol no one read. A witness who wasn\'t certain.',
-            'JUDGE You know what you saw.',
+            function () { return window.showEpilogue('AcquitEnd'); },
             'end',
         ],
 
         'ReturnEnd': [
             function () { return window.playHammer(); },
-            'show scene #0a0a0a with fadeIn',
             'JUDGE The case is returned to the investigating authority. The evidence requires additional examination.',
             'JUDGE The prosecutor protests. The case is reassigned to a different investigator.',
-            'JUDGE Eight months later, a different judge presides.',
-            'JUDGE Adamov is convicted.',
+            function () { return window.showEpilogue('ReturnEnd'); },
             'end',
         ],
     },
@@ -350,11 +339,13 @@ monogatari.script({
 
         'Start': [
             'show scene #1a0a00 with fadeIn',
-            'JUDGE Справа №84-23Б. Дзяржава супраць Аляксея Адамава.',
-            'PROSECUTOR У ноч на 14 лютага 1984 года на пероне станцыі Лучаса была знойдзена задушанай дзяжурная Тацяна Кацуба.',
-            'PROSECUTOR Відавочца паставіў абвінавачанага на месца здарэння. Яго адбіткі пальцаў знойдзены на верыўцы. Ён прызнаў сваю віну ў пісьмовай форме.',
-            'PROSECUTOR Дзяржава просіць максімальнага пакарання паводле артыкула 101.',
-            'LAWYER Абарона аспрэчвае законнасць прызнання і дакладнасць апазнання.',
+            'JUDGE Справа №84-23Б. Адамаў Алег Васільевіч, 1957 г.н., ураджэнец г. Віцебска, вадзіцель.',
+            'PROSECUTOR 13 студзеня 1984 года каля 19 гадзін 40 хвілін абвінавачаны, знаходзячыся за рулём аўтамашыны МАЗ каля пяшчанага кар\'ера «Шпілі», убачыў, што па чыгуначнай насыпе ідзе Кацуба Таццяна Іванаўна, 1964 г.н., якая накіроўвалася на працу на станцыю Лучаса.',
+            'PROSECUTOR Адамаў выйшаў з машыны, падняўся на насып і ззаду напаў на пацярпелую. Ён заткнуў ёй рот уласнай рукавіцай, звязаў рукі поясам ад паліто і згвалтаваў яе. Баючыся выкрыцця, задушыў Кацубу шыйнай хусткай, адцягнуў цела ў кусты і скраў яе сумку з асабістымі рэчамі, грашыма і фатаграфіямі.',
+            'PROSECUTOR Абвінавачваецца па: п. «ж» арт. 100 КК БССР — умыснае забойства, спалучанае са згвалтаваннем; ч. 1 арт. 115 — згвалтаванне; ч. 2 арт. 141 — крадзеж асабістай маёмасці.',
+            'PROSECUTOR Доказы: прызнальныя паказанні з яўкай з павіннай; паказ месца злачынства пры следчым эксперыменце; вынікі судова-медыцынскай экспертызы — група крыві; фотаздымак забітай, знойдзены пры вобыску ў хляве абвінавачанага; паказанні сведак.',
+            'PROSECUTOR Абвінавачваны вінаватым сябе не прызнае. Аднак яго віна пацвярджаецца сукупнасцю доказаў.',
+            'LAWYER Абарона аспрэчвае кожны элемент даказнай базы. Прызнанне атрымана пад ціскам. Астатнія доказы не пацвярджаюць абвінавачанне незалежна.',
             {
                 'Choice': {
                     'Dialog': 'JUDGE Суд прыступае да разгляду справы.',
@@ -382,15 +373,17 @@ monogatari.script({
         ],
 
         'AskCircumstances': [
-            'JUDGE Апішыце, дзе вы знаходзіліся ў ноч на 14 лютага.',
-            'ADAMOV Увечары 14 лютага я быў на чыгуначным пероне. Я ўбачыў жанчыну. Падышоў да яе. Узнікла сутычка, якая скончылася яе смерцю.',
-            'JUDGE Яго аповед супадае слова ў слова з пісьмовымі паказаннямі. Не перафразаваны — завучаны.',
-            'JUDGE Голас роўны. Вочы апушчаны на стол.',
+            'JUDGE Адамаў павольна падымаецца, трымаецца за край стала. Не глядзіць у бок суддзі.',
+            'ADAMOV Я не вінаваты. Гэта яны мяне прымушалі… пад ціскам. Я падпісаў, таму што баяўся. Яны казалі: калі не прызнаешся — пасадзім за малалетак.',
+            'ADAMOV Месца, дзе ляжала… дзе быў труп… мне паказалі. Я паўтарыў. Я не ведаў. А фотаздымак… у хляве? Першы раз бачу. Можа, падкінулі. Не ведаю.',
+            'ADAMOV Я працаваў у кар\'еры. Сведкі ёсць. А яны мяне трымалі, не адпускалі, пакуль не прызнаўся. Я баяўся. Я не забіваў.',
+            'ADAMOV Больш нічога не буду казаць. Няхай адвакат. Я не вінаваты.',
+            'JUDGE Голас глухі, сіплы, часам зрываецца. Пальцы сціскаюцца ў кулакі. Вочы ў падлогу.',
             {
                 'Choice': {
                     'Dialog': 'JUDGE Працягваць дапытваць?',
-                    'CheckWritten':             { 'Text': 'Параўнаць з пісьмовымі паказаннямі', 'Do': 'jump CheckWritten'        },
-                    'BackToInterrogateAccused': { 'Text': 'Перайсці далей',                     'Do': 'jump InterrogateAccused'  },
+                    'CheckWritten':             { 'Text': 'Параўнаць з пісьмовым прызнаннем', 'Do': 'jump CheckWritten'        },
+                    'BackToInterrogateAccused': { 'Text': 'Перайсці далей',                   'Do': 'jump InterrogateAccused'  },
                 },
             },
         ],
@@ -550,33 +543,33 @@ monogatari.script({
         ],
 
         'CheckAutopsy': [
-            'JUDGE Час смерці: ацэнач-на паміж 22:30 і 23:30 14 лютага.',
-            'JUDGE На верхнім адзенні ахвяры знойдзены адзіночны цёмны волас. Грубая тэкстура. Светлы колер.',
-            'JUDGE Волас Адамава — тонкі і каштанавы.',
+            'JUDGE Час смерці: ацэначна паміж 19:00 і 21:00 13 студзеня.',
+            'JUDGE Судова-медыцынская экспертыза ўстанаўлівае групу крыві біялагічных слядоў, знойдзеных на месцы злачынства.',
+            'JUDGE Група крыві супадае з абвінавачаным. Яна таксама ёсць прыкладна ў 40% насельніцтва.',
             {
                 'Choice': {
-                    'Dialog': 'JUDGE Дасследаваць гэты волас?',
-                    'CheckDNA':        { 'Text': 'Ці была прызначана крыміналістычная экспертыза?', 'Do': 'jump CheckDNA'      },
-                    'BackToEvidence2': { 'Text': 'Перайсці далей',                                  'Do': 'jump StudyEvidence' },
+                    'Dialog': 'JUDGE Дасследаваць далей?',
+                    'CheckDNA':        { 'Text': 'Ці была прызначана дадатковая экспертыза?', 'Do': 'jump CheckDNA'      },
+                    'BackToEvidence2': { 'Text': 'Перайсці далей',                            'Do': 'jump StudyEvidence' },
                 },
             },
         ],
 
         'CheckDNA': [
-            'JUDGE Шукаю ў справе справаздачу аб крыміналістычным аналізе волас.',
-            'JUDGE Яе няма.',
-            'JUDGE Волас з цела ахвяры — магчыма, забойцы — быў заўважаны і пакінуты без аналізу.',
+            'JUDGE Шукаю ў справе дадатковыя крыміналістычныя заключэнні па групе крыві.',
+            'JUDGE Іншых незалежных экспертыз у справе няма. Толькі адна лабараторыя, толькі адзін вынік.',
+            'JUDGE Група крыві — адзіны біялагічны доказ. Пацвярджае прысутнасць, але не асобу.',
             {
                 'Choice': {
-                    'Dialog': 'JUDGE Прызначыць экспертызу?',
-                    'OrderExam':       { 'Text': 'Запатрабаваць неадкладны аналіз волас', 'Do': 'jump OrderExam'     },
-                    'BackToEvidence3': { 'Text': 'Перайсці далей',                        'Do': 'jump StudyEvidence' },
+                    'Dialog': 'JUDGE Прызначыць незалежную экспертызу?',
+                    'OrderExam':       { 'Text': 'Запатрабаваць незалежную паўторную экспертызу', 'Do': 'jump OrderExam'     },
+                    'BackToEvidence3': { 'Text': 'Перайсці далей',                                'Do': 'jump StudyEvidence' },
                 },
             },
         ],
 
         'OrderExam': [
-            'JUDGE Суд прызначае параўнальную крыміналістычную экспертызу ўзору волас.',
+            'JUDGE Суд прызначае незалежную паўторную судова-медыцынскую экспертызу.',
             'PROSECUTOR Ваша гонар, гэта значна затрымае разгляд справы.',
             'JUDGE Прынята да ведама. Загад застаецца ў сіле.',
             'jump StudyEvidence',
@@ -629,38 +622,27 @@ monogatari.script({
 
         'GuiltyEnd': [
             function () { return window.playHammer(); },
-            'show scene #0a0a0a with fadeIn',
             'JUDGE Вінаваты. Аляксей Адамаў прысуджаецца да пятнаццаці гадоў папраўча-працоўных лагераў.',
             'ADAMOV Не... не, я гэтага не рабіў. Яны прымусілі мяне гэта сказаць. Калі ласка.',
             'JUDGE Зала пусцела. Справа закрыта.',
-            'JUDGE Вердыкт быў апратэставаны. Пратэст адхілены.',
-            'JUDGE У жніўні 1985 года каля Полацка быў затрыманы Генадзь Міхасевіч.',
-            'JUDGE Ён прызнаўся ў згвалтаванні і забойстве сарака двух жанчын.',
-            'JUDGE Адна з іх — Тацяна Кацуба.',
-            'JUDGE Адамаў быў вызвалены праз дзесяць гадоў. Яму было трыццаць восем.',
-            'JUDGE Чатырнаццаць чалавек памылкова асуджаныя ў адзінаццаці судовых працэсах.',
-            'JUDGE Адзін — расстраляны.',
+            function () { return window.showEpilogue('GuiltyEnd'); },
             'end',
         ],
 
         'AcquitEnd': [
             function () { return window.playHammer(); },
-            'show scene #0a0a0a with fadeIn',
-            'JUDGE Невінаваты. Прадстаўленыя доказы не адпавядаюць стандарту, неабходнаму для пазбаўлення чалавека волі.',
+            'JUDGE Невінаваты. Прадстаўленыя доказы не адпавядаюць стандарту, неабходнаму для асуджэння.',
             'JUDGE Прызнанне атрымана ва ўмовах, якія суд не можа прыняць.',
-            'JUDGE Пракурор будзе апратэстоўваць. Вашы начальнікі патэлефануюць. Ціск будзе значным.',
-            'JUDGE Але вы бачылі сіняк. Пратакол, які ніхто не чытаў. Сведку, які не быў упэўнены.',
-            'JUDGE Вы ведаеце, што бачылі.',
+            'JUDGE Вы ведаеце, што бачылі. Сіняк. Пратакол, які ніхто не чытаў. Сведку, які не быў упэўнены.',
+            function () { return window.showEpilogue('AcquitEnd'); },
             'end',
         ],
 
         'ReturnEnd': [
             function () { return window.playHammer(); },
-            'show scene #0a0a0a with fadeIn',
             'JUDGE Справа вяртаецца следчым органам. Доказы патрабуюць дадатковай праверкі.',
             'JUDGE Пракурор пярэчыць. Справа перадаецца іншаму следчаму.',
-            'JUDGE Праз восем месяцаў выносіць вердыкт іншы суддзя.',
-            'JUDGE Адамаў асуджаны.',
+            function () { return window.showEpilogue('ReturnEnd'); },
             'end',
         ],
     },

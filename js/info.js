@@ -332,12 +332,34 @@ function onDialogAdvance() {
     }
 }
 
+function injectNotebookSummary(choiceContainer) {
+    if (choiceContainer.querySelector('.notebook-summary')) return;
+
+    const nameEl = document.querySelector('[data-content="character-name"]');
+    const dialogEl = document.querySelector('[data-content="dialog"]');
+
+    const name = nameEl ? nameEl.textContent.trim() : '';
+    const dialog = dialogEl ? dialogEl.textContent.trim() : '';
+
+    if (!dialog) return;
+
+    const summary = document.createElement('div');
+    summary.className = 'notebook-summary';
+    const label = name ? `${name}: ${dialog}` : dialog;
+    // Truncate at ~120 chars
+    summary.textContent = label.length > 120 ? label.slice(0, 117) + '…' : label;
+
+    choiceContainer.insertBefore(summary, choiceContainer.firstChild);
+}
+
 const choiceObserver = new MutationObserver(() => {
     const choiceContainer = document.querySelector('choice-container');
     if (choiceContainer) {
         choiceWasPresent = true;
         hideInfoBtn();
         closeInfoPanel();
+        // Inject summary after a tick so Monogatari has rendered the dialog text
+        setTimeout(() => injectNotebookSummary(choiceContainer), 80);
     } else if (choiceWasPresent) {
         choiceWasPresent = false;
         slidesAfterChoice = 0;
@@ -348,9 +370,32 @@ const choiceObserver = new MutationObserver(() => {
     }
 });
 
+function setSceneProps(visible) {
+    ['prop-clipboard', 'prop-case-doc', 'prop-gavel'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (visible) {
+            el.removeAttribute('hidden');
+        } else {
+            el.setAttribute('hidden', '');
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const root = document.getElementById('monogatari');
     if (root) choiceObserver.observe(root, { childList: true, subtree: true });
+
+    // Watch game-screen active class to show/hide scene props
+    const gameScreen = document.querySelector('[data-screen="game"]');
+    if (gameScreen) {
+        const gameScreenObserver = new MutationObserver(() => {
+            setSceneProps(gameScreen.classList.contains('active'));
+        });
+        gameScreenObserver.observe(gameScreen, { attributes: true, attributeFilter: ['class'] });
+        // Set initial state
+        setSceneProps(gameScreen.classList.contains('active'));
+    }
 
     // Ensure info button is visible if we're already in a game state
     setTimeout(() => {
@@ -394,6 +439,7 @@ document.getElementById('lang-btn').addEventListener('click', () => {
         const next = current === 'English' ? 'Belarusian' : 'English';
 
         langBtn.textContent = next === 'English' ? 'BY' : 'EN';
+        infoBtn.textContent = next === 'English' ? 'ІНФА' : 'INFO';
         Monogatari.default.preference('Language', next);
         Monogatari.default.localize();
         closeInfoPanel();
@@ -410,6 +456,95 @@ document.getElementById('lang-btn').addEventListener('click', () => {
         console.error('lang-btn error:', e);
     }
 });
+
+// ── Epilogue data — real Vitebsk case story ────────────────────
+const EPILOGUE_BODY = {
+    'English': `
+        <p>Between 1971 and 1985, <strong>Gennadiy Mikhaseich</strong> murdered at least 36 women in the Vitebsk region of Soviet Belarus. He was a married Communist Party member who worked at the Vitebsk Electric Meter Plant. To his neighbors he was unremarkable.</p>
+        <p>As the murders continued without a suspect, the KGB and regional police faced institutional pressure to make arrests and clear cases. They did — repeatedly.</p>
+        <p><strong>Fourteen people were convicted in eleven separate trials.</strong> Each conviction was built on the same foundation: a confession obtained during extended interrogation without legal counsel, followed by investigative protocols that matched the confession word for word.</p>
+        <p>One of those fourteen was <strong>Ivan Markelov</strong>. He was executed in 1983 for a murder he did not commit. He was thirty-one years old.</p>
+        <hr>
+        <p><strong>Oleg Adamov</strong> was arrested in January 1984. He was twenty-seven years old — a truck driver, married, with a young child. He was held for fourteen hours without access to a lawyer. He signed a confession prepared by the investigators. At trial he recanted — clearly, in front of the bench. It made no difference.</p>
+        <p>The court accepted the written confession, a photograph recovered from his barn, and the testimony of two witnesses who were not certain of what they had seen. Verdict: guilty. Fifteen years of corrective labor.</p>
+        <hr>
+        <p>In August 1985, <strong>Mikhaseich was detained near Polotsk</strong> after a woman managed to escape from his vehicle. Under questioning he confessed to 36 murders. Forensic evidence confirmed his guilt. He was tried and executed in 1987.</p>
+        <p>The wrongful convictions were reviewed. Thirteen of the fourteen were released and rehabilitated. <strong>Ivan Markelov could not be rehabilitated. He was dead.</strong></p>
+        <p>Adamov was released after serving nearly a decade. He was thirty-seven years old. He received a formal document stating that his conviction had been an error.</p>
+        <hr>
+        <p>Judge Valentina Yakovleva was not prosecuted. The investigators who conducted the interrogations were not prosecuted. The system that produced these outcomes was not reformed.</p>
+        <p>The Vitebsk case became a landmark in the Soviet debate over capital punishment — proof that the state had already killed an innocent man and could not know when it might do so again.</p>
+        <p>That debate was never resolved. <strong>Belarus remains the last country in Europe to carry out executions.</strong></p>
+    `,
+    'Belarusian': `
+        <p>З 1971 па 1985 год <strong>Генадзь Міхасевіч</strong> забіў не менш за 36 жанчын у Віцебскай вобласці Савецкай Беларусі. Ён быў жанатым членам Кампартыі, які працаваў на Віцебскім заводзе вымяральных прыбораў. Для суседзяў — звычайны чалавек.</p>
+        <p>Пакуль забойствы працягваліся без падазраванага, КДБ і абласная міліцыя адчувалі ўнутраны ціск: трэба было рабіць арышты і «закрываць» справы. І яны рабілі гэта — зноў і зноў.</p>
+        <p><strong>Чатырнаццаць чалавек было асуджана ў адзінаццаці асобных судовых працэсах.</strong> Кожны прысуд быў пабудаваны на адной аснове: прызнанні, атрыманым пасля доўгага допыту без адваката, і следчых пратаколах, якія слова ў слова супадалі з прызнаннем.</p>
+        <p>Адным з гэтых чатырнаццаці быў <strong>Іван Маркелаў</strong>. Яго расстралялі ў 1983 годзе за забойства, якога ён не здзяйсняў. Яму было трыццаць адзін год.</p>
+        <hr>
+        <p><strong>Алег Адамаў</strong> быў арыштаваны ў студзені 1984 года. Яму было дваццаць сем гадоў — вадзіцель грузавіка, жанаты, з маленькім дзіцем. Яго трымалі чатырнаццаць гадзін без доступу да адваката. Ён падпісаў прызнанне, складзенае следчымі. На судзе публічна адмовіўся ад яго — выразна, перад усімі. Гэта нічога не змяніла.</p>
+        <p>Суд прыняў пісьмовае прызнанне, фатаграфію з хлява і паказанні двух сведкаў, якія не былі ўпэўнены ў тым, што бачылі. Вердыкт: вінаваты. Пятнаццаць гадоў папраўча-працоўных лагераў.</p>
+        <hr>
+        <p>У жніўні 1985 года <strong>Міхасевіча затрымалі каля Полацка</strong> — жанчыне ўдалося ўцячы з яго машыны. На допыце ён прызнаўся ў 36 забойствах. Крыміналістычная экспертыза пацвердзіла яго віну. Міхасевіч быў асуджаны і расстраляны ў 1987 годзе.</p>
+        <p>Памылковыя прысуды перагледзелі. Трынаццаць з чатырнаццаці вызвалілі і рэабілітавалі. <strong>Івана Маркелава рэабілітаваць было немагчыма. Ён быў мёртвы.</strong></p>
+        <p>Адамаў быў вызвалены пасля амаль дзесяці гадоў зняволення. Яму было трыццаць сем гадоў. Ён атрымаў афіцыйны дакумент, у якім сцвярджалася, што яго асуджэнне было памылкай.</p>
+        <hr>
+        <p>Суддзя Валянціна Якаўлева не была прыцягнута да адказнасці. Следчыя, якія праводзілі допыты, — таксама. Сістэма, якая спарадзіла гэтыя вынікі, не была рэфармавана.</p>
+        <p>Віцебская справа стала знакавай у савецкай дыскусіі аб смяротным пакаранні — доказ таго, што дзяржава ўжо пакарала смерцю нявіннага чалавека і не магла ведаць, калі зробіць гэта зноў.</p>
+        <p>Гэтая дыскусія так і не была вырашана. <strong>Беларусь застаецца апошняй краінай Еўропы, дзе прыводзяцца ў выкананне смяротныя прысуды.</strong></p>
+    `,
+};
+
+const EPILOGUE_INTRO = {
+    'English': {
+        'GuiltyEnd':  { text: 'You made the same choice as Judge Valentina Yakovleva on March 15, 1984.',                                           cls: 'ep-same'      },
+        'AcquitEnd':  { text: 'You chose differently. In reality, the verdict was: <em>Guilty.</em>',                                              cls: 'ep-different' },
+        'ReturnEnd':  { text: 'In reality, no judge returned this case for additional investigation. The verdict was guilty.',                      cls: 'ep-different' },
+    },
+    'Belarusian': {
+        'GuiltyEnd':  { text: 'Вы зрабілі той самы выбар, які зрабіла суддзя Валянціна Якаўлева 15 сакавіка 1984 года.',                         cls: 'ep-same'      },
+        'AcquitEnd':  { text: 'Вы зрабілі іншы выбар. У рэальнасці вердыкт быў: <em>Вінаваты.</em>',                                             cls: 'ep-different' },
+        'ReturnEnd':  { text: 'У рэальнасці ніводны суддзя не вярнуў гэту справу на дадатковае расследаванне. Вердыкт — вінаваты.',               cls: 'ep-different' },
+    },
+};
+
+const EPILOGUE_CONTINUE_LABEL = { 'English': 'Continue', 'Belarusian': 'Працягнуць' };
+
+window.showEpilogue = function (endingType) {
+    return new Promise((resolve) => {
+        const lang = (Monogatari.default.preference('Language') || 'Belarusian');
+        const L = lang === 'English' ? 'English' : 'Belarusian';
+
+        // Hide all scene props — show just the wood background
+        setSceneProps(false);
+
+        const overlay   = document.getElementById('epilogue-overlay');
+        const introEl   = document.getElementById('epilogue-intro');
+        const bodyEl    = document.getElementById('epilogue-body');
+        const btn       = document.getElementById('epilogue-continue');
+
+        const intro = EPILOGUE_INTRO[L][endingType] || EPILOGUE_INTRO[L]['GuiltyEnd'];
+        introEl.innerHTML = `<span class="${intro.cls}">${intro.text}</span>`;
+        bodyEl.innerHTML  = EPILOGUE_BODY[L];
+        btn.textContent   = EPILOGUE_CONTINUE_LABEL[L];
+
+        // Scroll to top in case it was opened before
+        const content = document.getElementById('epilogue-content');
+        if (content) content.scrollTop = 0;
+
+        overlay.removeAttribute('hidden');
+        requestAnimationFrame(() => overlay.classList.add('visible'));
+
+        function onContinue () {
+            btn.removeEventListener('click', onContinue);
+            overlay.classList.remove('visible');
+            overlay.addEventListener('transitionend', () => overlay.setAttribute('hidden', ''), { once: true });
+            resolve();
+        }
+        btn.addEventListener('click', onContinue);
+    });
+};
+
 
 // Hammer animation — called directly from script.js function actions
 window.playHammer = function () {

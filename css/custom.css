@@ -7,14 +7,14 @@ body {
     padding: 0;
 }
 
-#monogatari, 
-[data-screen], 
+#monogatari,
+[data-screen],
 .background-container,
 .background {
     background-color: transparent !important;
 }
 
-/* ── Hammer animation ─────────────────────────────── */
+/* ── Hammer animation ─────────────────────────────────────────── */
 #hammer-overlay {
     position: fixed;
     inset: 0;
@@ -44,68 +44,356 @@ body {
     100% { background-position:  -768px 0; }
 }
 
-/* ── Info button ──────────────────────────────────── */
+
+/* ── Scene props ──────────────────────────────────────────────── */
+#prop-clipboard,
+#prop-case-doc,
+#prop-gavel {
+    position: fixed;
+    pointer-events: none;
+    z-index: 5;
+}
+#prop-clipboard[hidden],
+#prop-case-doc[hidden],
+#prop-gavel[hidden] { display: none; }
+
+/* Clipboard: left side, portrait, ~37% wide */
+#prop-clipboard {
+    left: 3%;
+    top: 5%;
+    width: 37%;
+    height: 87vh;
+}
+#prop-clipboard img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+}
+
+/* Criminal case doc: center-right */
+#prop-case-doc {
+    left: 47%;
+    top: 3%;
+    width: 28%;
+    height: 84vh;
+}
+#prop-case-doc img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+}
+
+/* Gavel: bottom-right */
+#prop-gavel {
+    right: 2%;
+    bottom: 1%;
+    width: 26%;
+    height: 44vh;
+}
+#prop-gavel img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom right;
+    display: block;
+}
+
+
+/* ── Main menu — dark wood horizontal nav bar ────────────────── */
+main-menu {
+    position: absolute !important;
+    top: 0 !important;
+    bottom: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-self: unset !important;
+    background: rgba(18, 9, 3, 0.93) !important;
+    border-bottom: 1px solid #6b3a15 !important;
+    padding: 0 !important;
+    backdrop-filter: blur(6px) !important;
+    z-index: 50 !important;
+}
+
+main-menu button {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    color: #c9a96e !important;
+    font-family: Georgia, 'Times New Roman', serif !important;
+    font-size: 0.68rem !important;
+    font-weight: normal !important;
+    letter-spacing: 0.22em !important;
+    text-transform: uppercase !important;
+    padding: 16px 26px !important;
+    width: auto !important;
+    height: auto !important;
+    cursor: pointer !important;
+    transition: color 0.2s, background 0.2s !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+main-menu button:hover,
+main-menu button:focus {
+    background: rgba(107, 58, 21, 0.45) !important;
+    color: #f0d9a8 !important;
+    border: none !important;
+    outline: none !important;
+}
+
+main-menu button span:first-child {
+    display: none !important;
+}
+
+
+/* ── Quick menu — dark wood nav bar, forced to top ───────────── */
+quick-menu {
+    top: 0 !important;
+    bottom: auto !important;
+    background: rgba(18, 9, 3, 0.88) !important;
+    border-bottom: 1px solid #6b3a15 !important;
+    /* leave right side clear for info/lang buttons (~96px) */
+    padding-right: 96px !important;
+}
+
+quick-menu button {
+    color: #c9a96e !important;
+    font-family: Georgia, 'Times New Roman', serif !important;
+    font-size: 0.62rem !important;
+    letter-spacing: 0.18em !important;
+    text-transform: uppercase !important;
+    padding: 0 14px !important;
+    width: auto !important;
+    height: 2.5rem !important;
+    background: transparent !important;
+    margin: 0 !important;
+    transition: color 0.2s, background 0.2s !important;
+}
+
+quick-menu button:hover,
+quick-menu button:focus {
+    background: rgba(107, 58, 21, 0.45) !important;
+    color: #f0d9a8 !important;
+    border-bottom: none !important;
+    outline: none !important;
+}
+
+quick-menu > button > [data-string] {
+    display: inline-block !important;
+}
+
+quick-menu > button > .fas {
+    display: none !important;
+}
+
+
+/* ── Text-box — repositioned onto the clipboard yellow pad ───── */
+/*
+ * Clipboard image (711×910) at 37vw fills left 3–40% of screen, top 5–87%.
+ * Yellow pad within image: x≈13–93%, y≈21–97% of image dimensions.
+ * Text area (after red margin): x≈21–93% of image → ~11–37.4% of viewport.
+ * Vertical: top of pad ≈ 5% + 21% × 82% ≈ 22%, bottom ≈ 5% + 97% × 82% ≈ 84.5%.
+ */
+text-box {
+    position: fixed !important;
+    top: 30% !important;
+    left: 9% !important;
+    width: 27% !important;
+    bottom: auto !important;
+    min-height: 0 !important;
+    max-height: 34% !important;
+    height: auto !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    z-index: 15 !important;
+    overflow: visible !important;
+}
+
+text-box::after { display: none !important; }
+
+text-box [data-content=name] {
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 0.7rem !important;
+    font-weight: bold !important;
+    color: #2a1500 !important;
+    padding: 0 0 3px 0 !important;
+    display: block !important;
+    min-height: 0 !important;
+}
+
+text-box [data-content=side-image] {
+    display: none !important;
+}
+
+text-box [data-content=text] {
+    display: block !important;
+    overflow: visible !important;
+    max-height: none !important;
+}
+
+text-box p,
+text-box [data-content=dialog] {
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 0.72rem !important;
+    color: #2a1500 !important;
+    line-height: 1.65 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+
+/* ── Choice container — overlaid on lower clipboard pad area ─── */
+choice-container {
+    position: fixed !important;
+    left: 11% !important;
+    top: 62% !important;
+    bottom: auto !important;
+    right: auto !important;
+    transform: none !important;
+    width: 27% !important;
+    height: auto !important;
+    max-height: 26% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    margin: 0 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    z-index: 500 !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    flex-wrap: nowrap !important;
+}
+
+choice-container::before { display: none !important; }
+
+choice-container [data-content=wrapper] {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+}
+
+/* Dialog summary injected by JS above the choices */
+.notebook-summary {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.7rem;
+    color: #2a1500;
+    line-height: 1.65;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed rgba(42, 21, 0, 0.35);
+    font-style: italic;
+    display: none; /* summary already visible in text-box above */
+}
+
+choice-container button {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(42, 21, 0, 0.55) !important;
+    border-radius: 0 !important;
+    color: #2a1500 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 0.72rem !important;
+    font-weight: normal !important;
+    text-align: left !important;
+    padding: 2px 0 1px 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 1.65em !important;
+    margin: 4px 0 !important;
+    cursor: pointer !important;
+    line-height: 1.65 !important;
+    letter-spacing: 0.01em !important;
+    transition: color 0.15s !important;
+    text-decoration: underline !important;
+    text-underline-offset: 3px !important;
+    text-decoration-color: rgba(42, 21, 0, 0.5) !important;
+    white-space: normal !important;
+}
+
+choice-container button::before {
+    content: '• ' !important;
+    text-decoration: none !important;
+}
+
+choice-container button:hover,
+choice-container button:focus {
+    color: #8a1800 !important;
+    text-decoration-color: #8a1800 !important;
+    background: transparent !important;
+    border-bottom: 1px solid rgba(138, 24, 0, 0.5) !important;
+    outline: none !important;
+}
+
+
+/* ── Lang / info buttons — nav bar style, top right ─────────── */
+/* Both sit in the top-right corner at the same height as quick-menu */
+#lang-btn,
 #info-btn {
     position: fixed;
-    top: 20px;
-    right: 75px;
+    top: 0;
+    bottom: auto;
     z-index: 9000;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.75);
-    background: rgba(0,0,0,0.55);
-    color: #fff;
-    font-size: 20px;
-    font-weight: bold;
-    font-family: Georgia, serif;
+    height: 2.5rem;
+    width: auto;
+    min-width: 48px;
+    padding: 0 14px;
+    border: none;
+    border-left: 1px solid #6b3a15;
+    border-radius: 0;
+    background: rgba(18, 9, 3, 0.88);
+    color: #c9a96e;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.62rem;
+    font-weight: normal;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(4px);
+    transition: background 0.2s, color 0.2s;
+    backdrop-filter: blur(6px);
+}
+
+#lang-btn {
+    right: 0;
+}
+
+#info-btn {
+    right: 48px; /* sits to the left of lang-btn */
     opacity: 0;
     pointer-events: none;
-    transition: background 0.2s, transform 0.15s, opacity 0.3s;
-    line-height: 1;
+    transition: background 0.2s, color 0.2s, opacity 0.3s;
 }
 #info-btn.visible {
     opacity: 1;
     pointer-events: auto;
 }
-#info-btn:hover {
-    background: rgba(139,0,0,0.8);
-    transform: scale(1.1);
-}
 
-#lang-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9000;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.75);
-    background: rgba(0,0,0,0.55);
-    color: #fff;
-    font-size: 14px;
-    font-weight: bold;
-    font-family: Georgia, serif;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(4px);
-    transition: background 0.2s, transform 0.15s;
-}
-#lang-btn:hover {
-    background: rgba(0,100,0,0.8);
-    transform: scale(1.1);
+#lang-btn:hover,
+#lang-btn:focus,
+#info-btn:hover,
+#info-btn:focus {
+    background: rgba(107, 58, 21, 0.55);
+    color: #f0d9a8;
+    outline: none;
 }
 
 
-/* ── Info panel overlay ───────────────────────────── */
+/* ── Info panel overlay ───────────────────────────────────────── */
 #info-panel {
     position: fixed;
     inset: 0;
@@ -178,10 +466,92 @@ body {
 }
 #info-close:hover { color: #fff; }
 
-/* ── Placeholder backgrounds removed to show wooden texture */
+
+/* ── Epilogue overlay — real case story on wood ───────────────── */
+#epilogue-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    overflow: hidden;
+}
+#epilogue-overlay[hidden] { display: none; }
+#epilogue-overlay.visible { opacity: 1; }
+
+#epilogue-content {
+    max-width: 700px;
+    width: 86%;
+    max-height: 82vh;
+    overflow-y: auto;
+    padding: 48px 56px 40px;
+    background: rgba(8, 4, 1, 0.78);
+    border: 1px solid rgba(139, 90, 30, 0.35);
+    border-radius: 3px;
+    color: #e2d0b4;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.94rem;
+    line-height: 1.85;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.85);
+}
+
+#epilogue-intro {
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(139, 90, 30, 0.3);
+}
+
+.ep-same {
+    display: block;
+    color: #c0392b;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.ep-different {
+    display: block;
+    color: #b8a030;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+#epilogue-body p { margin: 0 0 14px; }
+#epilogue-body strong { color: #f0d9a8; }
+#epilogue-body em { color: #c0b090; }
+#epilogue-body hr {
+    border: none;
+    border-top: 1px solid rgba(139, 90, 30, 0.28);
+    margin: 22px 0;
+}
+
+#epilogue-continue {
+    display: block;
+    margin: 32px auto 0;
+    background: transparent;
+    border: 1px solid rgba(139, 90, 30, 0.55);
+    color: #c9a96e;
+    font-family: Georgia, serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 11px 36px;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+#epilogue-continue:hover {
+    background: rgba(107, 58, 21, 0.35);
+    color: #f0d9a8;
+    border-color: rgba(139, 90, 30, 0.8);
+}
 
 
-/* ── Version Tag ──────────────────────────────────── */
+/* ── Version Tag ──────────────────────────────────────────────── */
 #version-tag {
     position: fixed;
     bottom: 10px;
