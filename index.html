@@ -31,5 +31,18 @@
 
     <script src="node_modules/@monogatari/core/dist/engine/core/monogatari.js"></script>
     <script src="js/script.js"></script>
+
+    <!-- Legal info overlay -->
+    <button id="info-btn" aria-label="Legal information" title="Legal info">!</button>
+
+    <div id="info-panel" role="dialog" aria-modal="true" aria-label="Legal information" hidden>
+        <div id="info-panel-inner">
+            <button id="info-close" aria-label="Close">✕</button>
+            <h2 id="info-title"></h2>
+            <div id="info-body"></div>
+        </div>
+    </div>
+
+    <script src="js/info.js"></script>
 </body>
 </html>
