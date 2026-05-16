@@ -232,7 +232,6 @@ const choiceObserver = new MutationObserver(() => {
         // Small delay so Monogatari updates state('label') before we read it
         setTimeout(() => {
             showInfoBtn();
-            openInfoPanel();
         }, 120);
     }
 });
@@ -281,7 +280,7 @@ window.playHammer = function () {
         setTimeout(() => {
             overlay.hidden = true;
             resolve();
-        }, 900);
+        }, 1800);
     });
 };
 
