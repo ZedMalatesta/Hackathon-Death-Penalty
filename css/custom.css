@@ -1,3 +1,33 @@
+/* ── Hammer animation ─────────────────────────────── */
+#hammer-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 8000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.45);
+    pointer-events: none;
+}
+#hammer-overlay[hidden] { display: none; }
+
+#hammer-sprite {
+    width: 528px;
+    height: 528px;
+    background-image: url('../assets/hammer.png');
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    animation: hammer-hit 0.9s steps(1, end) forwards;
+}
+
+@keyframes hammer-hit {
+    0%   { background-position:     0px 0; }
+    25%  { background-position:  -528px 0; }
+    50%  { background-position: -1056px 0; }
+    75%  { background-position: -1584px 0; }
+    100% { background-position: -1584px 0; }
+}
+
 /* ── Info button ──────────────────────────────────── */
 #info-btn {
     position: fixed;
