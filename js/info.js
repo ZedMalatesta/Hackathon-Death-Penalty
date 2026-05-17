@@ -520,14 +520,9 @@ window.showEpilogue = function (endingType) {
         // Hide all scene props — show just the wood background
         setSceneProps(false);
 
-        // Clear inline background set by Monogatari's "show scene" command
-        // (ShowBackground.js sets el.style directly, bypassing CSS)
-        const bgEl = document.querySelector('[data-ui="background"]');
-        if (bgEl) {
-            bgEl.style.backgroundColor = '';
-            bgEl.style.backgroundImage = '';
-            bgEl.style.background = '';
-        }
+        // Force Monogatari's background layer invisible.
+        // CSS !important overrides inline styles; adding the class is enough.
+        document.documentElement.classList.add('epilogue-active');
 
         const overlay   = document.getElementById('epilogue-overlay');
         const introEl   = document.getElementById('epilogue-intro');
@@ -544,12 +539,11 @@ window.showEpilogue = function (endingType) {
         if (content) content.scrollTop = 0;
 
         overlay.removeAttribute('hidden');
-        requestAnimationFrame(() => overlay.classList.add('visible'));
 
         function onContinue () {
             btn.removeEventListener('click', onContinue);
-            overlay.classList.remove('visible');
-            overlay.addEventListener('transitionend', () => overlay.setAttribute('hidden', ''), { once: true });
+            overlay.setAttribute('hidden', '');
+            document.documentElement.classList.remove('epilogue-active');
             resolve();
         }
         btn.addEventListener('click', onContinue);
