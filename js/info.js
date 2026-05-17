@@ -118,20 +118,21 @@ const LEGAL_INFO = {
                    <p>In 1984, Judge Valentina Yakovleva signed the conviction order. Adamov served ten years before Mikhaseich's arrest made the truth undeniable.</p>
                    <p>The law gives you the same choice she had.</p>`,
         },
+        'DeathEnd': {
+            title: 'Capital punishment — The irreversible verdict',
+            body: `<p>Capital punishment is the only sentence that cannot be corrected after the fact. In the Vitebsk case, the state executed <strong>Ivan Markelov</strong> for a murder committed by Gennadiy Mikhaseich.</p>
+                   <p>Between 1984 and 1987 — before Mikhaseich was caught — at least one more wrongful death sentence was carried out. No posthumous rehabilitation restores a life.</p>
+                   <p><strong>Belarus remains the last country in Europe to carry out executions.</strong></p>`,
+        },
         'GuiltyEnd': {
             title: 'The Vitebsk Case — Historical outcome',
             body: `<p>Fourteen people were wrongfully convicted. One was executed. Mikhaseich — the real killer — continued to murder until 1985.</p>
                    <p>The case became the symbol of Soviet judicial failure. Investigators, prosecutors, and judges were prosecuted. None served significant prison time.</p>`,
         },
-        'AcquitEnd': {
-            title: 'What acquittal means',
-            body: `<p>An acquittal does not mean the crime goes unpunished — it means the state has not proven guilt to the required standard. The investigation continues.</p>
-                   <p>In 1985, Mikhaseich was caught. Adamov's innocence was confirmed. But the acquitting judge in this scenario would have spared him a decade of imprisonment.</p>`,
-        },
         'ReturnEnd': {
-            title: 'Returning a case — The procedural delay',
+            title: 'Returning a case — The procedural middle ground',
             body: `<p>Returning a case for additional investigation is the procedural middle ground. In practice, in the Soviet system, it meant the case was reassigned until a judge willing to convict was found.</p>
-                   <p>Procedural delay is not justice. It is justice deferred — and often denied.</p>`,
+                   <p>No judge returned the Adamov case. But returning it was the only action that could have preserved the possibility of justice.</p>`,
         },
     },
 
@@ -250,20 +251,21 @@ const LEGAL_INFO = {
                    <p>У 1984 годзе суддзя Валянціна Якаўлева подпісала прысуд. Адамаў адсядзеў дзесяць гадоў да арышту Міхасевіча.</p>
                    <p>Закон дае вам той самы выбар, які быў у яе.</p>`,
         },
+        'DeathEnd': {
+            title: 'Смяротнае пакаранне — Незваротны вердыкт',
+            body: `<p>Смяротнае пакаранне — адзіны прысуд, які нельга выправіць задным лікам. У Віцебскай справе дзяржава расстраляла <strong>Івана Маркелава</strong> за забойства, здзейсненае Генадзем Міхасевічам.</p>
+                   <p>Паміж 1984 і 1987 гадамі — пакуль Міхасевіча не злавілі — быў выкананы яшчэ мінімум адзін памылковы смяротны прысуд. Ніякая пасмяротная рэабілітацыя не вяртае жыццё.</p>
+                   <p><strong>Беларусь застаецца апошняй краінай Еўропы, дзе прыводзяцца ў выкананне смяротныя прысуды.</strong></p>`,
+        },
         'GuiltyEnd': {
             title: 'Віцебская справа — Гістарычны зыход',
             body: `<p>Чатырнаццаць чалавек памылкова асуджаны. Адзін расстраляны. Міхасевіч — сапраўдны забойца — працягваў забіваць да 1985 года.</p>
                    <p>Справа стала сімвалам правалу савецкага правасуддзя.</p>`,
         },
-        'AcquitEnd': {
-            title: 'Апраўданне — Што яно азначае',
-            body: `<p>Апраўданне не азначае, што злачынства застаецца безнапакараным. Гэта азначае, што дзяржава не даказала віну ў патрэбнай ступені. Расследаванне працягваецца.</p>
-                   <p>У 1985 годзе Міхасевіч быў затрыманы. Невінаватасць Адамава пацверджана. Але суддзя, які апраўдаў бы яго ў гэтым сцэнарыі, пазбавіў бы яго дзесяці гадоў зняволення.</p>`,
-        },
         'ReturnEnd': {
-            title: 'Вяртанне справы — Працэсуальная затрымка',
+            title: 'Вяртанне справы — Працэсуальны сярэдні шлях',
             body: `<p>Вяртанне справы на дадатковае расследаванне — гэта працэсуальны сярэдні шлях. На практыцы ў савецкай сістэме гэта азначала перадачу справы да таго часу, пакуль не знаходзіўся суддзя, гатовы асудзіць.</p>
-                   <p>Працэсуальная затрымка — не правасуддзе. Гэта адкладзенае — і часта адмоўленае — правасуддзе.</p>`,
+                   <p>Ніводны суддзя не вярнуў справу Адамава. Але гэта было адзінае дзеянне, якое магло захаваць магчымасць правасуддзя.</p>`,
         },
     },
 };
@@ -497,14 +499,14 @@ const EPILOGUE_BODY = {
 
 const EPILOGUE_INTRO = {
     'English': {
-        'GuiltyEnd':  { text: 'You made the same choice as Judge Valentina Yakovleva on March 15, 1984.',                                           cls: 'ep-same'      },
-        'AcquitEnd':  { text: 'You chose differently. In reality, the verdict was: <em>Guilty.</em>',                                              cls: 'ep-different' },
-        'ReturnEnd':  { text: 'In reality, no judge returned this case for additional investigation. The verdict was guilty.',                      cls: 'ep-different' },
+        'DeathEnd':   { text: 'You sentenced an innocent man to death. The court erupted in applause. A prison sentence can still be reversed. An execution cannot. Your mistake cost a human life.',                                            cls: 'ep-same'      },
+        'GuiltyEnd':  { text: 'You sentenced the accused to 25 years. Nobody was particularly satisfied. But this man remained alive. The mistake could be corrected — even if too late.',                                                      cls: 'ep-same'      },
+        'ReturnEnd':  { text: 'You noticed inconsistencies and returned the case for further investigation. Your career was destroyed. But you did not send an innocent man to prison or to death. And with that you will live — with a clear conscience.', cls: 'ep-different' },
     },
     'Belarusian': {
-        'GuiltyEnd':  { text: 'Вы зрабілі той самы выбар, які зрабіла суддзя Валянціна Якаўлева 15 сакавіка 1984 года.',                         cls: 'ep-same'      },
-        'AcquitEnd':  { text: 'Вы зрабілі іншы выбар. У рэальнасці вердыкт быў: <em>Вінаваты.</em>',                                             cls: 'ep-different' },
-        'ReturnEnd':  { text: 'У рэальнасці ніводны суддзя не вярнуў гэту справу на дадатковае расследаванне. Вердыкт — вінаваты.',               cls: 'ep-different' },
+        'DeathEnd':   { text: 'Ты выносіш смяротны прысуд. Зала суда выбухае апладысментамі. Турэмны прысуд яшчэ можна адмяніць. Смяротнае пакаранне — не. Твая памылка каштавала чалавечага жыцця.',                                         cls: 'ep-same'      },
+        'GuiltyEnd':  { text: 'Ты прысуджаеш абвінавачанага да 25 гадоў турмы. Ніхто асабліва не задаволены. Але гэты чалавек застаўся жывым. Памылку ўдалося выправіць, хай і занадта позна.',                                                cls: 'ep-same'      },
+        'ReturnEnd':  { text: 'Ты заўважаеш нестыкоўкі ў справе і вяртаеш яе на дапрацоўку. Твая кар\'ера знішчана. Але ты не адправіў невінаватага чалавека ў турму ці на смерць. І з гэтым табе давядзецца жыць усё астатняе жыццё — са спакойным сумленнем.', cls: 'ep-different' },
     },
 };
 
@@ -517,6 +519,15 @@ window.showEpilogue = function (endingType) {
 
         // Hide all scene props — show just the wood background
         setSceneProps(false);
+
+        // Clear inline background set by Monogatari's "show scene" command
+        // (ShowBackground.js sets el.style directly, bypassing CSS)
+        const bgEl = document.querySelector('[data-ui="background"]');
+        if (bgEl) {
+            bgEl.style.backgroundColor = '';
+            bgEl.style.backgroundImage = '';
+            bgEl.style.background = '';
+        }
 
         const overlay   = document.getElementById('epilogue-overlay');
         const introEl   = document.getElementById('epilogue-intro');

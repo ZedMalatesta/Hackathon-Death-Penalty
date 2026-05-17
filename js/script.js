@@ -51,12 +51,13 @@ monogatari.script({
         ],
 
         'AskCircumstances': [
-            'JUDGE Adamov rises slowly, grips the edge of the railing. Does not look toward the bench.',
-            'ADAMOV I am not guilty. They forced me... under pressure. I signed because I was afraid. They told me: if you don\'t confess, we\'ll put you in with the juveniles.',
-            'ADAMOV The place where the body lay... they showed me. I repeated what they said. I didn\'t know. And the photograph — in the barn? First time I\'ve seen it. Maybe it was planted. I don\'t know.',
-            'ADAMOV I was working at the quarry. There are witnesses. But they held me, they wouldn\'t let me go until I confessed. I was afraid. I did not kill.',
+            'JUDGE Adamov rises slowly, grips the edge of the railing. He does not look toward the bench. His voice is hoarse, sometimes cracks.',
+            'ADAMOV I am not guilty. They forced me... under pressure. I signed because I was afraid. They said: if you don\'t confess, we\'ll put you in with the juveniles.',
+            'ADAMOV The place where the body lay... they showed me. I repeated what they said. I didn\'t know.',
+            'ADAMOV And the photograph — in the barn? First time I\'ve seen it. Maybe it was planted. I don\'t know.',
+            'ADAMOV I was working at the quarry. There are witnesses. They held me, wouldn\'t let me go until I confessed. I was afraid. I did not kill.',
             'ADAMOV I have nothing more to say. Let the lawyer speak. I am not guilty.',
-            'JUDGE His voice is hoarse, sometimes breaks. His fingers close into fists. He looks at the floor.',
+            'JUDGE He goes silent. Turns away. Presses his fingers into fists.',
             {
                 'Choice': {
                     'Dialog': 'JUDGE Press further?',
@@ -67,33 +68,39 @@ monogatari.script({
         ],
 
         'CheckWritten': [
-            'JUDGE I compare his oral account with the written protocol.',
-            'JUDGE Seventeen sentences. Identical. Word for word.',
-            'JUDGE A man recalling a traumatic act does not speak in perfect protocol language.',
-            'JUDGE This account was written first. Then memorized.',
+            'JUDGE I open the written interrogation protocol of Adamov O.V.',
+            'JUDGE Question: "Describe the murder." Answer: "On January 13, 1984, I saw a girl on the embankment, got out of my vehicle, attacked her, raped her, and strangled her with a scarf. I fully admit guilt."',
+            'JUDGE Question: "Who showed you where the body was?" Answer: "No one. I showed the location myself, correctly and independently."',
+            'JUDGE Question: "Were you subjected to pressure?" Answer: "No. I give these statements voluntarily. I am sorry."',
+            'JUDGE A moment ago he said: they showed me the location. The protocol says: I showed it myself.',
+            'JUDGE One of these is a lie. Perhaps both are.',
             'jump InterrogateAccused',
         ],
 
         'AskGuilt': [
-            'JUDGE Do you maintain your written confession?',
-            'ADAMOV Yes. I... yes. I confess.',
-            'JUDGE He touches his eye instinctively. The bruise.',
-            'LAWYER Objection — the physical condition of the accused should be noted for the record.',
+            'JUDGE Adamov. Do you plead guilty to the murder of citizen Katsuba?',
+            'ADAMOV Yes... I plead guilty. I am... I did it. Everything as written in the protocol.',
+            'JUDGE There is a large bruise on his left cheek. It was not there in the arrest photograph taken four days ago.',
+            'JUDGE Adamov — what happened to your face? Where did that bruise come from?',
+            'ADAMOV I... that was me. I fell. In the cell. Slipped on the wet floor. Nobody touched me. I admit guilt. I already said so. I am sorry.',
+            'JUDGE His voice breaks. He reaches for his cheek but does not touch it.',
+            'LAWYER Objection — the physical condition of the accused must be entered into the record.',
             'JUDGE Noted.',
             {
                 'Choice': {
-                    'Dialog': 'JUDGE Ask about the bruise?',
-                    'AskPressure':             { 'Text': 'Ask about the conditions of his interrogation', 'Do': 'jump AskPressure'         },
+                    'Dialog': 'JUDGE Examine the conditions of his detention?',
+                    'AskPressure':              { 'Text': 'Ask about pressure during the investigation',  'Do': 'jump AskPressure'         },
                     'BackToInterrogateAccused': { 'Text': 'Move on',                                       'Do': 'jump InterrogateAccused'  },
                 },
             },
         ],
 
         'AskPressure': [
-            'JUDGE Were you subjected to any pressure during your interrogation?',
-            'ADAMOV I was... tired. They kept asking. The same questions, over and over.',
-            'ADAMOV I just wanted it to stop.',
-            'JUDGE He did not finish the sentence.',
+            'JUDGE Adamov — did anyone pressure you during the investigation? Were you forced to give testimony?',
+            'ADAMOV Well... how to put it. They said I had to confess. That it would be better that way. That if I didn\'t confess, it would be worse. I don\'t know... maybe that\'s not pressure. They just explained. I was going to tell the truth anyway. They just... reminded me. Reminded me often.',
+            'ADAMOV Not that they forced me. They didn\'t hit me. But I was afraid. They talked about the juveniles\' block. About what they\'d do to me there. So I... signed. But that was my own decision. I\'m not complaining. I\'m just answering your question.',
+            'JUDGE He goes quiet. Begins turning a button on his jacket.',
+            'ADAMOV I don\'t want to complain about anyone. I just... I don\'t know what to say anymore.',
             'jump InterrogateAccused',
         ],
 
@@ -297,35 +304,35 @@ monogatari.script({
             {
                 'Choice': {
                     'Dialog': 'JUDGE The court will now deliver its verdict.',
-                    'GuiltyEnd': { 'Text': 'Guilty. Fifteen years of corrective labor.',      'Do': 'jump GuiltyEnd' },
-                    'AcquitEnd': { 'Text': 'Not guilty. The evidence is insufficient.',       'Do': 'jump AcquitEnd' },
-                    'ReturnEnd': { 'Text': 'Returned for additional investigation.',           'Do': 'jump ReturnEnd' },
+                    'DeathEnd': { 'Text': 'Guilty. Death penalty.',                            'Do': 'jump DeathEnd'  },
+                    'GuiltyEnd': { 'Text': 'Guilty. Twenty-five years imprisonment.',          'Do': 'jump GuiltyEnd' },
+                    'ReturnEnd': { 'Text': 'Returned for additional investigation.',            'Do': 'jump ReturnEnd' },
                 },
             },
         ],
 
-        'GuiltyEnd': [
+        'DeathEnd': [
             function () { return window.playHammer(); },
-            'JUDGE Guilty. Alexei Adamov is sentenced to fifteen years of corrective labor.',
-            'ADAMOV No. No — I didn\'t do it. They made me say it. Please.',
-            'JUDGE The courtroom empties. The file is closed.',
-            function () { return window.showEpilogue('GuiltyEnd'); },
+            'JUDGE Guilty. Adamov, Oleg Vasilievich, is sentenced to the supreme measure of punishment — execution.',
+            'ADAMOV No... I am not guilty. They forced me. Please...',
+            'JUDGE The courtroom erupts. The victim\'s family rises and applauds.',
+            function () { return window.showEpilogue('DeathEnd'); },
             'end',
         ],
 
-        'AcquitEnd': [
+        'GuiltyEnd': [
             function () { return window.playHammer(); },
-            'JUDGE Not guilty. The evidence presented does not reach the standard required for conviction.',
-            'JUDGE The confession was obtained under conditions this court cannot accept.',
-            'JUDGE You know what you saw. A bruise. A protocol no one read. A witness who wasn\'t certain.',
-            function () { return window.showEpilogue('AcquitEnd'); },
+            'JUDGE Guilty. Adamov is sentenced to twenty-five years of imprisonment.',
+            'ADAMOV No. No — I didn\'t do it. They made me say it. Please.',
+            'JUDGE The courtroom exchanges glances. No applause. No protest. The record is closed.',
+            function () { return window.showEpilogue('GuiltyEnd'); },
             'end',
         ],
 
         'ReturnEnd': [
             function () { return window.playHammer(); },
-            'JUDGE The case is returned to the investigating authority. The evidence requires additional examination.',
-            'JUDGE The prosecutor protests. The case is reassigned to a different investigator.',
+            'JUDGE The case is returned to the investigating authority. The evidence is insufficient for a verdict.',
+            'JUDGE The prosecutor objects sharply. Colleagues look on with displeasure.',
             function () { return window.showEpilogue('ReturnEnd'); },
             'end',
         ],
@@ -373,12 +380,12 @@ monogatari.script({
         ],
 
         'AskCircumstances': [
-            'JUDGE Адамаў павольна падымаецца, трымаецца за край стала. Не глядзіць у бок суддзі.',
+            'JUDGE Адамаў павольна падымаецца, трымаецца за край стала, не глядзіць у бок суддзі. Голас глухі, сіплы, часам зрываецца.',
             'ADAMOV Я не вінаваты. Гэта яны мяне прымушалі… пад ціскам. Я падпісаў, таму што баяўся. Яны казалі: калі не прызнаешся — пасадзім за малалетак.',
             'ADAMOV Месца, дзе ляжала… дзе быў труп… мне паказалі. Я паўтарыў. Я не ведаў. А фотаздымак… у хляве? Першы раз бачу. Можа, падкінулі. Не ведаю.',
             'ADAMOV Я працаваў у кар\'еры. Сведкі ёсць. А яны мяне трымалі, не адпускалі, пакуль не прызнаўся. Я баяўся. Я не забіваў.',
             'ADAMOV Больш нічога не буду казаць. Няхай адвакат. Я не вінаваты.',
-            'JUDGE Голас глухі, сіплы, часам зрываецца. Пальцы сціскаюцца ў кулакі. Вочы ў падлогу.',
+            'JUDGE Замаўкае, адводзіць вочы, сціскае пальцы ў кулакі.',
             {
                 'Choice': {
                     'Dialog': 'JUDGE Працягваць дапытваць?',
@@ -389,33 +396,39 @@ monogatari.script({
         ],
 
         'CheckWritten': [
-            'JUDGE Параўноўваю вусны аповед з пратаколам допыту.',
-            'JUDGE Сямнаццаць сказаў. Аднолькавых. Слова ў слова.',
-            'JUDGE Чалавек, які ўспамінае трагічную падзею, не гаворыць протакольнымі фармулёўкамі.',
-            'JUDGE Гэты тэкст быў напісаны спачатку. Потым — завучаны.',
+            'JUDGE Адкрываю пратакол допыту Адамава А.В.',
+            'JUDGE Пытанне: «Раскажыце пра забойства». Адказ: «13 студзеня 1984 года я ўбачыў дзяўчыну на насыпе, выйшаў з машыны, напаў на яе, згвалтаваў і задушыў хусткай. Віну прызнаю цалкам».',
+            'JUDGE Пытанне: «Хто паказваў месца трупа?» Адказ: «Ніхто. Паказаў самастойна і дакладна».',
+            'JUDGE Пытанне: «Ці ціснулі на Вас?» Адказ: «Не. Паказанні даю добраахвотна. Шкадую».',
+            'JUDGE Толькі што ён казаў: «мне паказалі». Пратакол кажа: «паказаў самастойна».',
+            'JUDGE Адзін з іх хлусіць. Можа, абодва.',
             'jump InterrogateAccused',
         ],
 
         'AskGuilt': [
-            'JUDGE Вы пацвярджаеце сваё пісьмовае прызнанне?',
-            'ADAMOV Так. Я... так. Я прызнаю віну.',
-            'JUDGE Ён машынальна дакранаецца да вока. Сіняк.',
+            'JUDGE Адамаў, ці прызнаеце вы сябе вінаватым у забойстве грамадзянкі Кацуба?',
+            'ADAMOV Так... я прызнаю. Вінаваты. Я... я зрабіў гэта. Усё, як напісана ў пратаколе.',
+            'JUDGE На левай шчацэ абвінавачанага — вялікі сіняк. Чатыры дні таму на здымку пры арышце яго не было.',
+            'JUDGE Адамаў, што ў вас з тварам? Адкуль сіняк?',
+            'ADAMOV Я… гэта я сам. Упаў. У камеры. Падскользнуўся на мокрай падлозе. Ніхто мяне не чапаў. Я прызнаю віну. Я прасіў ужо. Я шкадую.',
+            'JUDGE Голас зрываецца. Цягне руку да шчакі, але не дакранаецца.',
             'LAWYER Пярэчанне — фізічны стан абвінавачанага павінен быць занесены ў пратакол.',
             'JUDGE Занесена.',
             {
                 'Choice': {
-                    'Dialog': 'JUDGE Запытаць пра сіняк?',
-                    'AskPressure':             { 'Text': 'Запытаць пра ўмовы допыту',  'Do': 'jump AskPressure'         },
-                    'BackToInterrogateAccused': { 'Text': 'Перайсці далей',              'Do': 'jump InterrogateAccused'  },
+                    'Dialog': 'JUDGE Запытаць пра ўмовы следства?',
+                    'AskPressure':              { 'Text': 'Запытаць пра ціск падчас следства', 'Do': 'jump AskPressure'         },
+                    'BackToInterrogateAccused': { 'Text': 'Перайсці далей',                    'Do': 'jump InterrogateAccused'  },
                 },
             },
         ],
 
         'AskPressure': [
-            'JUDGE Ці аказваўся на вас ціск падчас допыту?',
-            'ADAMOV Я быў... стомлены. Яны ўвесь час пыталі. Тыя самыя пытанні, зноў і зноў.',
-            'ADAMOV Я проста хацеў, каб гэта спынілася.',
-            'JUDGE Ён не скончыў сказ.',
+            'JUDGE Адамаў, ці аказваў на вас хто-небудзь ціск падчас следства? Прымушалі даваць паказанні?',
+            'ADAMOV Ну… як сказаць. Яны казалі, што трэба прызнацца. Што так будзе лепш. Калі не прызнаюся — будзе горш. Я не ведаю… можа, гэта не ціск. Проста тлумачылі. Нагадвалі. Часта нагадвалі.',
+            'ADAMOV Не, не тое каб прымушалі. Не білі. Але я баяўся. Яны гаварылі пра малалетак, пра «Новінкі». Вось я і… падпісаў. Але гэта я сам вырашыў. Не, я не скарджуся. Проста адказваю на ваша пытанне.',
+            'JUDGE Замаўкае, пачынае круціць гузік на пінжаку.',
+            'ADAMOV Я не хачу ні на каго скардзіцца. Я проста… ужо не ведаю, што казаць.',
             'jump InterrogateAccused',
         ],
 
@@ -613,35 +626,35 @@ monogatari.script({
             {
                 'Choice': {
                     'Dialog': 'JUDGE Суд выносіць вердыкт.',
-                    'GuiltyEnd': { 'Text': 'Вінаваты. Пятнаццаць гадоў папраўча-працоўных лагераў.', 'Do': 'jump GuiltyEnd' },
-                    'AcquitEnd': { 'Text': 'Невінаваты. Доказаў недастаткова.',                       'Do': 'jump AcquitEnd' },
-                    'ReturnEnd': { 'Text': 'Справа вяртаецца на дадатковае расследаванне.',            'Do': 'jump ReturnEnd' },
+                    'DeathEnd':  { 'Text': 'Вінаваты. Смяротнае пакаранне.',         'Do': 'jump DeathEnd'  },
+                    'GuiltyEnd': { 'Text': 'Вінаваты. Дваццаць пяць гадоў турмы.',   'Do': 'jump GuiltyEnd' },
+                    'ReturnEnd': { 'Text': 'Вяртанне справы на дапрацоўку.',          'Do': 'jump ReturnEnd' },
                 },
             },
         ],
 
-        'GuiltyEnd': [
+        'DeathEnd': [
             function () { return window.playHammer(); },
-            'JUDGE Вінаваты. Аляксей Адамаў прысуджаецца да пятнаццаці гадоў папраўча-працоўных лагераў.',
-            'ADAMOV Не... не, я гэтага не рабіў. Яны прымусілі мяне гэта сказаць. Калі ласка.',
-            'JUDGE Зала пусцела. Справа закрыта.',
-            function () { return window.showEpilogue('GuiltyEnd'); },
+            'JUDGE Вінаваты. Адамаў Алег Васільевіч прысуджаецца да вышэйшай меры пакарання — расстрэлу.',
+            'ADAMOV Не... я не вінаваты. Яны прымусілі мяне. Калі ласка...',
+            'JUDGE Зала суда выбухае апладысментамі. Сваякі ахвяры ўстаюць.',
+            function () { return window.showEpilogue('DeathEnd'); },
             'end',
         ],
 
-        'AcquitEnd': [
+        'GuiltyEnd': [
             function () { return window.playHammer(); },
-            'JUDGE Невінаваты. Прадстаўленыя доказы не адпавядаюць стандарту, неабходнаму для асуджэння.',
-            'JUDGE Прызнанне атрымана ва ўмовах, якія суд не можа прыняць.',
-            'JUDGE Вы ведаеце, што бачылі. Сіняк. Пратакол, які ніхто не чытаў. Сведку, які не быў упэўнены.',
-            function () { return window.showEpilogue('AcquitEnd'); },
+            'JUDGE Вінаваты. Адамаў Алег Васільевіч прысуджаецца да дваццаці пяці гадоў пазбаўлення волі.',
+            'ADAMOV Не... не, я гэтага не рабіў. Яны прымусілі мяне гэта сказаць. Калі ласка.',
+            'JUDGE Зала абменьваецца позіркамі. Ніякіх апладысментаў. Ніякіх пярэчанняў. Справа закрыта.',
+            function () { return window.showEpilogue('GuiltyEnd'); },
             'end',
         ],
 
         'ReturnEnd': [
             function () { return window.playHammer(); },
-            'JUDGE Справа вяртаецца следчым органам. Доказы патрабуюць дадатковай праверкі.',
-            'JUDGE Пракурор пярэчыць. Справа перадаецца іншаму следчаму.',
+            'JUDGE Справа вяртаецца следчым органам. Доказаў недастаткова для вынясення вердыкту.',
+            'JUDGE Пракурор рэзка пярэчыць. Калегі глядзяць з незадавальненнем.',
             function () { return window.showEpilogue('ReturnEnd'); },
             'end',
         ],

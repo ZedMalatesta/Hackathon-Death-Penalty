@@ -160,19 +160,20 @@ quick-menu {
     bottom: auto !important;
     background: rgba(18, 9, 3, 0.88) !important;
     border-bottom: 1px solid #6b3a15 !important;
-    /* leave right side clear for info/lang buttons (~96px) */
-    padding-right: 96px !important;
+    /* leave left side clear for lang + info buttons (~140px) */
+    padding-left: 150px !important;
+    padding-right: 0 !important;
 }
 
 quick-menu button {
     color: #c9a96e !important;
     font-family: Georgia, 'Times New Roman', serif !important;
-    font-size: 0.62rem !important;
+    font-size: 0.68rem !important;
     letter-spacing: 0.18em !important;
     text-transform: uppercase !important;
-    padding: 0 14px !important;
+    padding: 0 18px !important;
     width: auto !important;
-    height: 2.5rem !important;
+    height: 3rem !important;
     background: transparent !important;
     margin: 0 !important;
     transition: color 0.2s, background 0.2s !important;
@@ -338,25 +339,25 @@ choice-container button:focus {
 }
 
 
-/* ── Lang / info buttons — nav bar style, top right ─────────── */
-/* Both sit in the top-right corner at the same height as quick-menu */
+/* ── Lang / info buttons — nav bar style, top left ──────────── */
+/* Both sit in the top-left corner at the same height as quick-menu */
 #lang-btn,
 #info-btn {
     position: fixed;
     top: 0;
     bottom: auto;
     z-index: 9000;
-    height: 2.5rem;
+    height: 3rem;
     width: auto;
-    min-width: 48px;
-    padding: 0 14px;
+    min-width: 70px;
+    padding: 0 18px;
     border: none;
-    border-left: 1px solid #6b3a15;
+    border-right: 1px solid #6b3a15;
     border-radius: 0;
     background: rgba(18, 9, 3, 0.88);
     color: #c9a96e;
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 0.62rem;
+    font-size: 0.72rem;
     font-weight: normal;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -369,11 +370,11 @@ choice-container button:focus {
 }
 
 #lang-btn {
-    right: 0;
+    left: 0;
 }
 
 #info-btn {
-    right: 48px; /* sits to the left of lang-btn */
+    left: 70px; /* sits to the right of lang-btn */
     opacity: 0;
     pointer-events: none;
     transition: background 0.2s, color 0.2s, opacity 0.3s;
@@ -493,7 +494,7 @@ choice-container button:focus {
     border-radius: 3px;
     color: #e2d0b4;
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 0.94rem;
+    font-size: 1.1rem;
     line-height: 1.85;
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.85);
 }
