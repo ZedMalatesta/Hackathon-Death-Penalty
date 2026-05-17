@@ -156,36 +156,47 @@ main-menu button span:first-child {
 }
 
 
-/* ── Quick menu — dark wood nav bar, forced to top ───────────── */
+/* ── Quick menu — matches main-menu style exactly ────────────── */
 quick-menu {
     top: 0 !important;
     bottom: auto !important;
-    background: rgba(18, 9, 3, 0.88) !important;
+    background: rgba(18, 9, 3, 0.93) !important;
     border-bottom: 1px solid #6b3a15 !important;
-    /* leave left side clear for lang + info buttons (~140px) */
-    padding-left: 150px !important;
+    padding-left: 80px !important;
     padding-right: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    backdrop-filter: blur(6px) !important;
+    height: auto !important;
+    max-height: none !important;
 }
 
 quick-menu button {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
     color: #c9a96e !important;
     font-family: Georgia, 'Times New Roman', serif !important;
     font-size: 0.68rem !important;
-    letter-spacing: 0.18em !important;
+    font-weight: normal !important;
+    letter-spacing: 0.22em !important;
     text-transform: uppercase !important;
-    padding: 0 18px !important;
+    padding: 16px 26px !important;
     width: auto !important;
-    height: 3rem !important;
-    background: transparent !important;
-    margin: 0 !important;
+    height: auto !important;
+    cursor: pointer !important;
     transition: color 0.2s, background 0.2s !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 !important;
 }
 
 quick-menu button:hover,
 quick-menu button:focus {
     background: rgba(107, 58, 21, 0.45) !important;
     color: #f0d9a8 !important;
-    border-bottom: none !important;
+    border: none !important;
     outline: none !important;
 }
 
@@ -341,27 +352,23 @@ choice-container button:focus {
 }
 
 
-/* ── Lang / info buttons — nav bar style, top left ──────────── */
-/* Both sit in the top-left corner at the same height as quick-menu */
-#lang-btn,
-#info-btn {
+/* ── Lang button — nav bar style, top left ───────────────────── */
+#lang-btn {
     position: fixed;
     top: 0;
-    bottom: auto;
+    left: 0;
     z-index: 9000;
-    height: 3rem;
-    width: auto;
-    min-width: 70px;
-    padding: 0 18px;
+    height: auto;
+    padding: 16px 22px;
     border: none;
     border-right: 1px solid #6b3a15;
     border-radius: 0;
-    background: rgba(18, 9, 3, 0.88);
+    background: rgba(18, 9, 3, 0.93);
     color: #c9a96e;
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: normal;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     cursor: pointer;
     display: flex;
@@ -371,15 +378,33 @@ choice-container button:focus {
     backdrop-filter: blur(6px);
 }
 
-#lang-btn {
-    left: 0;
-}
-
+/* ── Info button — rounded circle with ! right of clipboard ───── */
 #info-btn {
-    left: 70px; /* sits to the right of lang-btn */
+    position: fixed;
+    /* clipboard right edge: 3% + 37% = 40% */
+    left: 40%;
+    top: 44%;
+    z-index: 9000;
+    width: 2.2rem;
+    height: 2.2rem;
+    padding: 0;
+    border: 2px solid rgba(201, 169, 110, 0.8);
+    border-radius: 50%;
+    background: rgba(18, 9, 3, 0.85);
+    color: #c9a96e;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    font-weight: bold;
+    font-style: italic;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transition: background 0.2s, color 0.2s, opacity 0.3s;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.3s;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 #info-btn.visible {
     opacity: 1;
@@ -390,7 +415,7 @@ choice-container button:focus {
 #lang-btn:focus,
 #info-btn:hover,
 #info-btn:focus {
-    background: rgba(107, 58, 21, 0.55);
+    background: rgba(107, 58, 21, 0.65);
     color: #f0d9a8;
     outline: none;
 }

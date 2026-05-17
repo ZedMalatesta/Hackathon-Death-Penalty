@@ -441,7 +441,6 @@ document.getElementById('lang-btn').addEventListener('click', () => {
         const next = current === 'English' ? 'Belarusian' : 'English';
 
         langBtn.textContent = next === 'English' ? 'BY' : 'EN';
-        infoBtn.textContent = next === 'English' ? 'ІНФА' : 'INFO';
         Monogatari.default.preference('Language', next);
         Monogatari.default.localize();
         closeInfoPanel();
