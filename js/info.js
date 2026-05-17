@@ -458,6 +458,26 @@ document.getElementById('lang-btn').addEventListener('click', () => {
     }
 });
 
+// ── Dynamic choice-container positioning ──────────────────────
+(function positionChoices() {
+    function update() {
+        const tb = document.querySelector('text-box');
+        const cc = document.querySelector('choice-container');
+        if (!tb || !cc) return;
+        const rect = tb.getBoundingClientRect();
+        cc.style.setProperty('top',  (rect.bottom + 6) + 'px', 'important');
+        cc.style.setProperty('left', rect.left + 'px', 'important');
+    }
+
+    function attach() {
+        const tb = document.querySelector('text-box');
+        if (!tb) { setTimeout(attach, 200); return; }
+        new ResizeObserver(update).observe(tb);
+        new MutationObserver(update).observe(document.body, { childList: true, subtree: false });
+    }
+    document.addEventListener('DOMContentLoaded', attach);
+}());
+
 // ── Epilogue data — real Vitebsk case story ────────────────────
 const EPILOGUE_BODY = {
     'English': `
@@ -565,6 +585,56 @@ window.playHammer = function () {
         }, 1800);
     });
 };
+
+// ── Character avatars next to name ─────────────────────────────
+const AVATAR_MAP = {
+  'суддзя':   'assets/avatars/judge.svg',
+  'пракурор': 'assets/avatars/prosecutor.svg',
+  'адамаў':   'assets/avatars/adamov.svg',
+  'адвакат':  'assets/avatars/lawyer.svg',
+  'ляшук':    'assets/avatars/lyashuk.svg',
+  'каваль':   'assets/avatars/koval.svg',
+  // English fallback keys
+  'judge':      'assets/avatars/judge.svg',
+  'prosecutor': 'assets/avatars/prosecutor.svg',
+  'adamov':     'assets/avatars/adamov.svg',
+  'lawyer':     'assets/avatars/lawyer.svg',
+  'lyashuk':    'assets/avatars/lyashuk.svg',
+  'koval':      'assets/avatars/koval.svg',
+};
+
+(function initAvatars() {
+  const avatarEl = document.createElement('img');
+  avatarEl.id  = 'char-avatar';
+  avatarEl.alt = '';
+  avatarEl.style.display = 'none';
+  document.body.appendChild(avatarEl);
+
+  function updateAvatar() {
+    const tb     = document.querySelector('text-box');
+    const nameEl = document.querySelector('text-box [data-content="name"]');
+    if (!nameEl || !tb) return;
+    const name = nameEl.textContent.trim().toLowerCase();
+    const src  = AVATAR_MAP[name] || null;
+    if (src) {
+      if (avatarEl.src !== new URL(src, location.href).href) avatarEl.src = src;
+      avatarEl.style.display = 'block';
+      tb.classList.add('with-avatar');
+    } else {
+      avatarEl.style.display = 'none';
+      tb.classList.remove('with-avatar');
+    }
+  }
+
+  const nameObserver = new MutationObserver(updateAvatar);
+
+  function attachWhenReady() {
+    const tb = document.querySelector('text-box');
+    if (!tb) { setTimeout(attachWhenReady, 200); return; }
+    nameObserver.observe(tb, { childList: true, subtree: true, characterData: true });
+  }
+  document.addEventListener('DOMContentLoaded', attachWhenReady);
+}());
 
 // ── Evidence folder ────────────────────────────────────────────
 const EVIDENCE_DOCS = {
