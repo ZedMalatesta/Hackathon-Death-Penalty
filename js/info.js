@@ -566,6 +566,175 @@ window.playHammer = function () {
     });
 };
 
+// ── Evidence folder ────────────────────────────────────────────
+const EVIDENCE_DOCS = {
+    'English': [
+        {
+            header: 'Criminal Case No. 1583-XX / Confession Protocol',
+            body: `<p><strong>Date:</strong> 18 January 1984. <strong>Duration:</strong> 14 hours 20 minutes.<br>
+                   <strong>Present:</strong> Investigator Morozov V.I. Defense counsel: <em>absent.</em></p>
+                   <p>The accused, Adamov O.V., states: <em>"On the evening of 14 November 1983 I was near the railway platform. I saw the victim. I followed her. I struck her. I left the scene."</em></p>
+                   <p>The accused signs the protocol without amendments.</p>
+                   <p><strong>Note:</strong> A bruise on the left cheekbone, not present at the time of arrest, is visible in the photographs taken on 19 January.</p>`,
+        },
+        {
+            header: 'Criminal Case No. 1583-XX / Autopsy Report',
+            body: `<p><strong>Victim:</strong> Katsuba T.A., age 24. <strong>Cause of death:</strong> blunt force trauma to the head.</p>
+                   <p><strong>Physical evidence collected:</strong><br>
+                   — Clothing fibres, dark colour<br>
+                   — One hair, not belonging to the victim, found on the coat collar</p>
+                   <p><strong>Hair analysis:</strong> <em>Not performed.</em> Sample retained in evidence bag No. 7-B.</p>
+                   <p><strong>Fingerprints:</strong> One partial print recovered from victim's bag. Analysis: <em>"consistent with"</em> the accused. Ridge count insufficient for positive identification.</p>`,
+        },
+        {
+            header: 'Criminal Case No. 1583-XX / Witness Statement — Lyashuk N.P.',
+            body: `<p><strong>Date of statement:</strong> 22 January 1984.<br>
+                   <strong>Witness:</strong> Lyashuk Nadezhda Petrovna, age 61. Resides opposite the platform.</p>
+                   <p><em>"On the evening in question I was at my window. I saw a man near the platform. I think it was him — the one they showed me at the identification parade."</em></p>
+                   <p><strong>Conditions of observation:</strong> Distance — approximately 40 metres. Time — 22:40. Lighting — single street lamp, partially obscured. Witness wears corrective lenses; was not wearing them at time of observation.</p>
+                   <p><strong>Protocol amendment</strong> (unsigned, initialled by investigator only): "I think" crossed out; replaced with "I clearly identified."</p>`,
+        },
+        {
+            header: 'Criminal Case No. 1583-XX / Witness Statement — Koval S.M.',
+            body: `<p><strong>Date of statement:</strong> 24 January 1984.<br>
+                   <strong>Witness:</strong> Koval Sergei Mikhailovich, age 34. Passed by platform at estimated 22:35.</p>
+                   <p><em>"I saw a man walking quickly away from the platform. He was tall — I would say 180–185 centimetres — broad shoulders, heavy build. Dark jacket."</em></p>
+                   <p><strong>Note for file:</strong> The accused, Adamov O.V., is recorded at 171 cm, slight build.</p>
+                   <p>Koval's description was not included in the summary of evidence presented to the court.</p>`,
+        },
+        {
+            header: 'Criminal Case No. 1583-XX / Interrogation Log',
+            body: `<p><strong>Session 1:</strong> 18 Jan 1984, 08:00 — 22:20. Duration: <strong>14 hours 20 minutes.</strong><br>
+                   Breaks: none recorded. Meals: none recorded.<br>
+                   Defense counsel present: <strong>No.</strong></p>
+                   <p><strong>Session 2:</strong> 19 Jan 1984, 09:00 — 12:40. Duration: 3 hours 40 minutes.<br>
+                   Defense counsel present: No.</p>
+                   <p>Confession signed at end of Session 1.<br>
+                   At trial, the accused stated: <em>"I signed because I was told it would go easier for me. I did not commit this crime."</em></p>`,
+        },
+        {
+            header: 'Criminal Case No. 1583-XX / Photograph — Evidence Item 4',
+            body: `<p><strong>Description:</strong> Photograph recovered from barn on property of Adamov O.V. Shows the accused near a railway platform, undated.</p>
+                   <p><strong>Provenance:</strong> Seized during search on 19 January 1984 without itemised warrant. Chain of custody record: incomplete.</p>
+                   <p><strong>Prosecution position:</strong> Places accused at the scene.<br>
+                   <strong>Defense position:</strong> Platform is a public location; photograph undated; provenance unverified.</p>
+                   <p><em>The court accepted the photograph as corroborating evidence.</em></p>`,
+        },
+    ],
+    'Belarusian': [
+        {
+            header: 'Крымінальная справа №1583-XX / Пратакол прызнання',
+            body: `<p><strong>Дата:</strong> 18 студзеня 1984 г. <strong>Працягласць:</strong> 14 гадзін 20 хвілін.<br>
+                   <strong>Прысутнічалі:</strong> следчы Марозаў У.І. Абаронца: <em>адсутнічаў.</em></p>
+                   <p>Абвінавачаны Адамаў А.В. паказвае: <em>«Увечары 14 лістапада 1983 г. я знаходзіўся каля чыгуначнай платформы. Я ўбачыў ахвяру. Я пайшоў за ёй. Я ўдарыў яе. Я сышоў з месца здарэння».</em></p>
+                   <p>Абвінавачаны подпісвае пратакол без паправак.</p>
+                   <p><strong>Заўвага:</strong> На фатаграфіях, зробленых 19 студзеня, бачны сіняк на левай шчацэ, якога не было пры арышце.</p>`,
+        },
+        {
+            header: 'Крымінальная справа №1583-XX / Акт судова-медыцынскай экспертызы',
+            body: `<p><strong>Ахвяра:</strong> Кацуба Т.А., 24 гады. <strong>Прычына смерці:</strong> тупая траўма галавы.</p>
+                   <p><strong>Сабраныя рэчавыя доказы:</strong><br>
+                   — Валакна адзення, цёмнага колеру<br>
+                   — Адзін волас, які не належыць ахвяры, знойдзены на каўняры паліто</p>
+                   <p><strong>Аналіз волас:</strong> <em>Не праведзены.</em> Узор захоўваецца ў канверце №7-Б.</p>
+                   <p><strong>Адбіткі пальцаў:</strong> Адзін частковы адбітак на сумцы ахвяры. Аналіз: <em>«адпавядае»</em> абвінавачанаму. Колькасць папілярных ліній недастатковая для станоўчай ідэнтыфікацыі.</p>`,
+        },
+        {
+            header: 'Крымінальная справа №1583-XX / Паказанні сведкі — Ляшук Н.П.',
+            body: `<p><strong>Дата паказанняў:</strong> 22 студзеня 1984 г.<br>
+                   <strong>Сведка:</strong> Ляшук Надзея Пятроўна, 61 год. Жыве насупраць платформы.</p>
+                   <p><em>«Увечары я стаяла каля акна. Я бачыла мужчыну каля платформы. Мне здаецца, гэта быў ён — той, якога мне паказалі на апазнанні».</em></p>
+                   <p><strong>Умовы назірання:</strong> Адлегласць — каля 40 метраў. Час — 22:40. Асвятленне — адзін ліхтар, часткова перакрыты. Сведка носіць акуляры; падчас назірання іх не было.</p>
+                   <p><strong>Паправа ў пратаколе</strong> (не завізавана сведкам, завізавана толькі следчым): «мне здаецца» закрэслена; замест — «я выразна апазнала».</p>`,
+        },
+        {
+            header: 'Крымінальная справа №1583-XX / Паказанні сведкі — Коваль С.М.',
+            body: `<p><strong>Дата паказанняў:</strong> 24 студзеня 1984 г.<br>
+                   <strong>Сведка:</strong> Коваль Сяргей Міхайлавіч, 34 гады. Праходзіў каля платформы каля 22:35.</p>
+                   <p><em>«Я бачыў мужчыну, які хутка ішоў ад платформы. Высокі — я б сказаў 180–185 сантыметраў — шырокія плечы, цяжкаватая будова. Цёмная куртка».</em></p>
+                   <p><strong>Заўвага:</strong> Абвінавачаны Адамаў А.В. — рост 171 см, хударлявы.</p>
+                   <p>Апісанне Коваля не ўвайшло ў зводку доказаў, прадстаўленых суду.</p>`,
+        },
+        {
+            header: 'Крымінальная справа №1583-XX / Журнал допытаў',
+            body: `<p><strong>Сеанс 1:</strong> 18 студз. 1984 г., 08:00 — 22:20. Працягласць: <strong>14 гадзін 20 хвілін.</strong><br>
+                   Перапынкі: не зафіксаваны. Ежа: не зафіксавана.<br>
+                   Прысутнасць абаронцы: <strong>Не.</strong></p>
+                   <p><strong>Сеанс 2:</strong> 19 студз. 1984 г., 09:00 — 12:40. Працягласць: 3 гадзіны 40 хвілін.<br>
+                   Прысутнасць абаронцы: Не.</p>
+                   <p>Прызнанне подпісана ў канцы сеанса 1.<br>
+                   На судзе абвінавачаны заявіў: <em>«Я подпісаў, таму што мне сказалі: так будзе лепш. Я не здзяйсняў гэтага злачынства».</em></p>`,
+        },
+        {
+            header: 'Крымінальная справа №1583-XX / Фатаграфія — рэчавы доказ №4',
+            body: `<p><strong>Апісанне:</strong> Фатаграфія, знойдзеная ў хляве Адамава А.В. На ёй абвінавачаны каля чыгуначнай платформы, без даты.</p>
+                   <p><strong>Паходжанне:</strong> Выялена пры ператрусе 19 студзеня 1984 г. без пазіцыйнага ордэра. Ланцужок захавання доказаў: <em>няпоўны.</em></p>
+                   <p><strong>Пазіцыя абвінавачання:</strong> Размяшчае абвінавачанага на месцы злачынства.<br>
+                   <strong>Пазіцыя абароны:</strong> Платформа — публічнае месца; фатаграфія без даты; паходжанне не пацверджана.</p>
+                   <p><em>Суд прыняў фатаграфію ў якасці дадатковага доказу.</em></p>`,
+        },
+    ],
+};
+
+(function initFolder() {
+    const overlay = document.getElementById('folder-overlay');
+    const headerEl = document.getElementById('folder-doc-header');
+    const bodyEl = document.getElementById('folder-doc-body');
+    const counterEl = document.getElementById('folder-counter');
+    const prevBtn = document.getElementById('folder-prev');
+    const nextBtn = document.getElementById('folder-next');
+    const closeBtn = document.getElementById('folder-close');
+    const caseProp = document.getElementById('prop-case-doc');
+
+    let currentIdx = 0;
+
+    function lang() {
+        try { return Monogatari.default.preference('Language') || 'English'; } catch (_) { return 'English'; }
+    }
+
+    function renderDoc(idx) {
+        const docs = EVIDENCE_DOCS[lang() === 'Belarusian' ? 'Belarusian' : 'English'];
+        const doc = docs[idx];
+        headerEl.textContent = doc.header;
+        bodyEl.innerHTML = doc.body;
+        counterEl.textContent = `${idx + 1} / ${docs.length}`;
+        prevBtn.disabled = idx === 0;
+        nextBtn.disabled = idx === docs.length - 1;
+        document.getElementById('folder-doc-content').scrollTop = 0;
+    }
+
+    function openFolder() {
+        currentIdx = 0;
+        renderDoc(0);
+        overlay.removeAttribute('hidden');
+    }
+
+    function closeFolder() {
+        overlay.setAttribute('hidden', '');
+    }
+
+    caseProp.addEventListener('click', () => {
+        if (!document.querySelector('[data-screen="game"]')?.classList.contains('active')) return;
+        openFolder();
+    });
+
+    prevBtn.addEventListener('click', () => { if (currentIdx > 0) renderDoc(--currentIdx); });
+    nextBtn.addEventListener('click', () => {
+        const docs = EVIDENCE_DOCS[lang() === 'Belarusian' ? 'Belarusian' : 'English'];
+        if (currentIdx < docs.length - 1) renderDoc(++currentIdx);
+    });
+    closeBtn.addEventListener('click', closeFolder);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeFolder(); });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !overlay.hidden) closeFolder();
+        if (!overlay.hidden) {
+            if (e.key === 'ArrowLeft') prevBtn.click();
+            if (e.key === 'ArrowRight') nextBtn.click();
+        }
+    });
+}());
+
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !document.getElementById('info-panel').hidden) closeInfoPanel();
     if (e.key === 'r' || e.key === 'R') {

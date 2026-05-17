@@ -495,6 +495,144 @@ choice-container button:focus {
 #info-close:hover { color: #fff; }
 
 
+/* ── Folder overlay — evidence browser ───────────────────────── */
+#folder-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 4000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+}
+#folder-overlay[hidden] { display: none; }
+
+#folder-inner {
+    position: relative;
+    width: min(860px, 92vw);
+    height: min(600px, 88vh);
+    display: flex;
+    align-items: stretch;
+}
+
+#folder-open-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+    pointer-events: none;
+}
+
+/* Sheet sits on the RIGHT half of the open folder */
+#folder-sheet {
+    position: absolute;
+    right: 4%;
+    top: 4%;
+    width: 46%;
+    height: 92%;
+}
+
+#folder-sheet-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+}
+
+#folder-doc-content {
+    position: absolute;
+    inset: 8% 8% 16% 8%;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+#folder-doc-header {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.58rem;
+    color: #555;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #bbb;
+}
+
+#folder-doc-body {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.65rem;
+    color: #1a1a1a;
+    line-height: 1.7;
+}
+#folder-doc-body p { margin: 0 0 8px; }
+#folder-doc-body strong { font-weight: bold; }
+#folder-doc-body em { color: #444; font-style: italic; }
+
+#folder-nav {
+    position: absolute;
+    bottom: 2%;
+    right: 4%;
+    width: 46%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    z-index: 2;
+}
+
+#folder-prev, #folder-next {
+    background: transparent;
+    border: none;
+    color: #666;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 2px 6px;
+    transition: color 0.15s;
+}
+#folder-prev:hover, #folder-next:hover { color: #111; }
+#folder-prev:disabled, #folder-next:disabled { opacity: 0.25; cursor: default; }
+
+#folder-counter {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    color: #888;
+    letter-spacing: 0.1em;
+}
+
+#folder-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(20, 10, 0, 0.8);
+    color: #c9a96e;
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background 0.2s;
+}
+#folder-close:hover { background: rgba(107, 58, 21, 0.9); }
+
+/* Case-doc prop is clickable in game */
+#prop-case-doc {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    transition: filter 0.2s;
+}
+#prop-case-doc:hover {
+    filter: brightness(1.1);
+}
+
 /* ── Hide entire Monogatari container during epilogue ────────── */
 .epilogue-active #monogatari {
     visibility: hidden !important;

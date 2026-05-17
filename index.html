@@ -53,6 +53,26 @@
     <button id="lang-btn" aria-label="Switch Language" title="Switch Language">EN</button>
     <button id="info-btn" aria-label="Legal information" title="Legal info">!</button>
 
+    <!-- Folder overlay — browsable evidence documents -->
+    <div id="folder-overlay" hidden>
+        <div id="folder-inner">
+            <img id="folder-open-img" src="assets/folder-open.png" alt="">
+            <div id="folder-sheet">
+                <img id="folder-sheet-img" src="assets/sheet.png" alt="">
+                <div id="folder-doc-content">
+                    <div id="folder-doc-header"></div>
+                    <div id="folder-doc-body"></div>
+                </div>
+            </div>
+            <div id="folder-nav">
+                <button id="folder-prev">&#8592;</button>
+                <span id="folder-counter"></span>
+                <button id="folder-next">&#8594;</button>
+            </div>
+            <button id="folder-close">&#x2715;</button>
+        </div>
+    </div>
+
     <!-- Epilogue overlay — real case story on wood background -->
     <div id="epilogue-overlay" hidden>
         <div id="epilogue-content">
