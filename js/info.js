@@ -399,12 +399,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setSceneProps(gameScreen.classList.contains('active'));
     }
 
-    // Ensure info button is visible if we're already in a game state
-    setTimeout(() => {
-        if (Monogatari.default.state('label')) {
-            showInfoBtn();
-        }
-    }, 500);
 
     document.addEventListener('click', (e) => {
         const gameScreen = document.querySelector('game-screen');
